@@ -1,0 +1,40 @@
+SAFARI LANKA - ACCOUNT MANAGEMENT + MULTI-VEHICLE BOOKING UPDATE
+
+1. MY ACCOUNT FOR ALL LOGINS
+- Every dashboard now has a "My Account" menu item.
+- Users can view full name, email, role, phone, account status and role-related profile fields.
+- Users can update allowed profile fields and optionally change their password.
+- Email and role remain administrator-controlled.
+
+Role-specific fields:
+- TOURIST: address
+- SAFARI_GUIDE: qualifications, languages, driving licence
+- JEEP_DRIVER: driving licence
+- SAFARI_OPERATOR / PARK_OFFICER / FINANCE_MANAGER / SYSTEM_ADMIN: general account fields only
+
+2. ADMIN ROLE-BASED ACCOUNT MANAGEMENT
+- Administrator can create and edit accounts for all seven system roles.
+- Create/Edit forms only show fields that belong to the selected role.
+- Safari Guide and Jeep Driver require a driving licence.
+- Safari Guide also requires qualifications and languages.
+
+3. SIX VISITORS PER VEHICLE
+- A safari vehicle carries a maximum of 6 visitors.
+- 1-6 visitors = 1 vehicle.
+- 7-12 visitors = 2 vehicles.
+- 13-18 visitors = 3 vehicles, subject to package max vehicles/max visitors.
+- Each package has an "Additional vehicle fee" configured by Safari Operations.
+- Default seeded additional vehicle fee equals that package's price-per-person amount.
+- Booking total = price per person x visitors + additional vehicle fee x extra vehicles.
+- Booking details and print summaries show vehicle count and vehicle surcharge.
+
+4. MULTIPLE RESOURCE ASSIGNMENTS
+- Safari Operations must confirm the booking and payment must be PAID before assigning resources.
+- When a booking requires more than one vehicle, the operator assigns each vehicle separately.
+- Each vehicle gets a different vehicle, driver and guide.
+- Tourist booking details show every assigned vehicle, driver and guide.
+
+DATABASE
+- Fresh setup: use database/SAFARI_LANKA_FULL.sql
+- Existing database: application startup performs compatibility migration automatically.
+- An optional manual script is included at database/UPGRADE_ACCOUNT_AND_MULTI_VEHICLE.sql

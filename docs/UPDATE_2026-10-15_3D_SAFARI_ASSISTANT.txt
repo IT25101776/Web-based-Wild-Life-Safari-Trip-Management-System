@@ -1,0 +1,28 @@
+SAFARI LANKA - KAVI 3D SAFARI ASSISTANT UPDATE
+Date: 2026-10-15
+
+Added a global floating Safari Lanka assistant named Kavi.
+
+Included files/assets:
+- frontend/src/components/SafariBot.jsx
+- frontend/public/models/safari-lanka-assistant.glb
+- frontend/public/models/safari-lanka-assistant.png
+- frontend/src/App.jsx updated to display the assistant globally
+- frontend/src/styles.css updated with light/dark/responsive assistant styling
+
+Behavior:
+- Floating animated 3D-rendered safari robot stays at the bottom-right of the website.
+- Clicking the robot opens/closes the Safari Assistant panel.
+- Quick navigation: Safari Packages, Dashboard/Sign in, Trip Status, Contact Support.
+- Quick FAQ chips: booking, payment, bank transfer, trip status, permits/gate, visitor capacity.
+- Text input supports keyword-based help for booking, card/bank payments, trip status, digital permits,
+  visitor/vehicle capacity, cancellations/rejections, Yala, reviews, support and accounts.
+- Tourist Trip Status button opens /dashboard?view=trip-status when the user is a Tourist.
+- Responses can include a direct action button to the correct website section.
+- Works in both light and dark themes and adapts to mobile screens.
+- No new npm dependency is required for the assistant.
+
+3D asset note:
+The source GLB model from the provided bot project is preserved in the main project as
+frontend/public/models/safari-lanka-assistant.glb. A front-facing transparent render of that real model
+is used for the floating assistant so the existing Safari Lanka frontend builds without adding Three.js.

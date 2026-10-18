@@ -1,0 +1,25 @@
+Safari Lanka custom site logo update
+Date: 2026-10-05
+
+Chosen logo file:
+frontend/public/images/brand/safari-lanka-logo.png
+
+Generated browser/app icon:
+frontend/public/images/brand/safari-lanka-icon.png
+
+Logo applied to:
+- Public navigation bar
+- Dashboard/sidebar brand area for every role
+- Login page
+- Tourist registration page
+- Browser favicon / Apple touch icon
+
+Files updated:
+- frontend/src/components/PublicNav.jsx
+- frontend/src/components/DashboardShell.jsx
+- frontend/src/pages/Login.jsx
+- frontend/src/pages/Register.jsx
+- frontend/src/styles.css
+- frontend/index.html
+
+No database/SQL changes are required.

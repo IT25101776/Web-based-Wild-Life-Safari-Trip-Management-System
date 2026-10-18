@@ -1,0 +1,7 @@
+UPDATE SUMMARY
+
+1. The browser page scrollbar is hidden across the public site and dashboards. Mouse wheel, touchpad and keyboard scrolling still work.
+2. Contact Us phone entry accepts digits only, maximum 15 digits, and validates 7-15 digits on both frontend and backend.
+3. Safari Operations and System Administration can review Contact Us requests. Detailed modal views are provided.
+4. Every My Account page includes a Preferred Language option: English, Sinhala or Tamil. The preference is stored on the user account.
+5. Database adds users.preferred_language.

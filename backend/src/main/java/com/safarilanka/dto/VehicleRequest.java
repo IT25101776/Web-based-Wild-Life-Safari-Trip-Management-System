@@ -1,0 +1,1 @@
+package com.safarilanka.dto; import jakarta.validation.constraints.*; import com.safarilanka.model.VehicleStatus; import java.time.*; public record VehicleRequest(@NotBlank String registrationNo,String model,@Min(1) int capacity,VehicleStatus status,LocalDate documentValidUntil,Long driverId){}

@@ -1,0 +1,34 @@
+PACKAGE HOVER VIDEO GUIDE
+
+Default video folder:
+frontend/public/videos/packages/
+
+Included package videos:
+- yala-dawn-leopard-quest.mp4
+- elephant-birdlife-explorer.mp4
+- golden-hour-sunset-safari.mp4
+- wildlife-photography-drive.mp4
+- family-discovery-safari.mp4
+- full-day-yala-explorer.mp4
+
+Tourist behavior:
+- Move the mouse over a package image to start the muted preview video.
+- Move the mouse away to stop and reset the video.
+- The selected package image on the booking page behaves the same way.
+
+Safari Operator create/edit package:
+- Upload JPG/PNG/WEBP package image.
+- Upload MP4/WEBM package video up to 50 MB.
+- Uploaded videos are saved into frontend/public/videos/packages/.
+- A video preview appears before saving.
+- The video URL can also be edited manually or removed.
+
+Recommended video:
+- MP4 H.264, 1280x720 or 1920x1080
+- Landscape 16:9
+- 5-20 seconds is ideal for hover preview
+- Keep it muted-friendly and reasonably compressed.
+
+Existing databases:
+- Hibernate updates the video_url column automatically.
+- Or run database/UPGRADE_PACKAGE_VIDEOS.sql manually.

@@ -1,0 +1,13 @@
+SAFARI OPERATOR PACKAGE DELETE
+
+Added a Delete button to Safari Operator > Packages.
+
+Behavior:
+- Operator must confirm before deletion.
+- Deleted package disappears from package management and tourist package lists.
+- Existing bookings remain unchanged and still keep their original package details.
+- This is implemented as a safe soft-delete to protect booking/payment/assignment history.
+- SYSTEM_ADMIN is also authorized by the backend endpoint.
+
+Existing databases are upgraded automatically at application start because Hibernate ddl-auto=update.
+Fresh database setup also includes the deleted column in SAFARI_LANKA_FULL.sql.

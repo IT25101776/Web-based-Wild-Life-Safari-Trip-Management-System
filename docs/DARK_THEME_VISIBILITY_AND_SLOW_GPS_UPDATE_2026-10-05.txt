@@ -1,0 +1,11 @@
+Safari Lanka update - 2026-10-05
+
+1. Comprehensive dark theme readability pass across public pages and every dashboard.
+2. Fixed light/cream background sections that still appeared in dark mode, especially Reviews and About Yala.
+3. Increased contrast for headings, descriptions, helper text, form labels, placeholders, cards, tables, tabs and modal content.
+4. Fixed low-contrast stat/admin icons and contact/About Yala icon tiles.
+5. Improved review cards, sub-rating chips and review notes in dark mode.
+6. Improved dark navigation/sidebar and form/search controls.
+7. GPS map still refreshes real trip/booking data every 1 second.
+8. GPS vehicle movement is now much slower: ~87 seconds per route step at the default zoom, up to ~90 seconds zoomed out and ~12 seconds at maximum zoom.
+9. No database schema changes were required.

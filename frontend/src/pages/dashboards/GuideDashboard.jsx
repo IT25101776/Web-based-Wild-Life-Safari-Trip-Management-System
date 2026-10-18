@@ -1,0 +1,52 @@
+import {useEffect,useState} from 'react';
+import {CalendarDays,CheckCircle2,AlertTriangle,UserCheck,Search,Plus,Pencil,Trash2,CalendarOff,Send} from 'lucide-react';
+import DashboardShell from '../../components/DashboardShell';
+import StatCard from '../../components/StatCard';
+import StatusBadge from '../../components/StatusBadge';
+import Modal from '../../components/Modal';
+import api,{messageOf} from '../../utils/api';
+import {useAuth} from '../../context/AuthContext';
+
+const today=()=>new Date().toISOString().slice(0,10);
+
+export default function GuideDashboard(){
+ const {user,setUser}=useAuth();
+ const [items,setItems]=useState([]),[rosters,setRosters]=useState([]),[leaves,setLeaves]=useState([]),[err,setErr]=useState('');
+ const [incident,setIncident]=useState(null),[incidentForm,setIncidentForm]=useState({type:'Wildlife / route observation',details:''});
+ const [rosterEdit,setRosterEdit]=useState(null),[leaveOpen,setLeaveOpen]=useState(false),[leaveForm,setLeaveForm]=useState({startDate:today(),endDate:today(),note:''}),[q,setQ]=useState('');
+ const emptyRoster=()=>({rosterDate:today(),shift:'MORNING',available:true,notes:''});
+ const load=()=>Promise.all([api.get('/assignments/mine'),api.get('/guide-rosters/mine'),api.get('/leave-requests/mine')]).then(([a,r,l])=>{setItems(a.data);setRosters(r.data);setLeaves(l.data)}).catch(e=>setErr(messageOf(e)));
+ useEffect(()=>{load()},[]);
+ const query=q.trim().toLowerCase();
+ const filteredItems=items.filter(a=>!query||[a.booking.bookingCode,a.booking.safariPackage?.name,a.booking.visitDate,a.booking.specialRequirements,a.vehicle?.registrationNo].filter(Boolean).join(' ').toLowerCase().includes(query));
+ const filteredRosters=rosters.filter(r=>!query||[r.rosterDate,r.shift,r.notes,r.available?'available':'unavailable'].filter(Boolean).join(' ').toLowerCase().includes(query));
+ const updateStatus=async(id,status)=>{try{await api.patch(`/assignments/${id}/status`,{status});load()}catch(e){setErr(messageOf(e))}};
+ const availability=async()=>{try{const r=await api.patch('/staff/me',{available:!user.available,qualifications:user.qualifications,languages:user.languages});const next={...user,...r.data};setUser(next);localStorage.setItem('safari_user',JSON.stringify(next))}catch(e){setErr(messageOf(e))}};
+ const requestLeave=async()=>{try{await api.post('/leave-requests',leaveForm);setLeaveOpen(false);setLeaveForm({startDate:today(),endDate:today(),note:''});await load()}catch(e){setErr(messageOf(e))}};
+ const report=async()=>{try{await api.post('/incidents',{bookingId:incident.booking.id,...incidentForm});setIncident(null);setIncidentForm({type:'Wildlife / route observation',details:''})}catch(e){setErr(messageOf(e))}};
+ const saveRoster=async()=>{try{if(rosterEdit.id)await api.put(`/guide-rosters/${rosterEdit.id}`,rosterEdit);else await api.post('/guide-rosters',rosterEdit);setRosterEdit(null);await load()}catch(e){setErr(messageOf(e))}};
+ const deleteRoster=async(r)=>{if(!window.confirm(`Delete roster entry for ${r.rosterDate} (${r.shift.replaceAll('_',' ')})?`))return;try{await api.delete(`/guide-rosters/${r.id}`);await load()}catch(e){setErr(messageOf(e))}};
+ return <DashboardShell title="Safari Guide Workspace" subtitle="Manage your roster, availability, assigned tours, trip progress and incidents.">
+  {err&&<div className="alert error">{err}</div>}
+  <div className="stats-grid"><StatCard icon={CalendarDays} label="Assigned trips" value={items.length}/><StatCard icon={CheckCircle2} label="Accepted" value={items.filter(x=>x.status==='ACCEPTED').length}/><StatCard icon={AlertTriangle} label="In progress" value={items.filter(x=>x.status==='IN_PROGRESS').length}/><StatCard icon={UserCheck} label="Availability" value={user.available&&!user.onLeave?'Available':'Unavailable'}/></div>
+
+  <section className="panel profile-strip"><div><span className="eyebrow dark">GUIDE PROFILE</span><h3>{user.qualifications||'Qualifications not entered'}</h3><p>{user.languages||'Add supported languages from your profile'}</p></div><div className="actions"><button className={`btn ${user.available?'btn-outline-dark':'btn-dark'}`} onClick={availability}>{user.available?'Set unavailable':'Set available'}</button><button className="btn btn-outline-dark" onClick={()=>setLeaveOpen(true)}><CalendarOff size={16}/>Request leave</button></div></section>
+
+  <section className="panel" id="guide-leave"><div className="panel-head"><div><h2>My leave requests</h2><p>Submit leave with a note. System Administration must approve or reject it before it affects trip assignment.</p></div><button className="mini-action" onClick={()=>setLeaveOpen(true)}><Plus size={14}/>New request</button></div><div className="table-wrap"><table><thead><tr><th>Dates</th><th>Note</th><th>Status</th><th>Admin note</th></tr></thead><tbody>{leaves.map(l=><tr key={l.id}><td>{l.startDate} → {l.endDate}</td><td>{l.note}</td><td><StatusBadge value={l.status}/></td><td>{l.adminNote||'—'}</td></tr>)}</tbody></table>{!leaves.length&&<div className="empty compact">No leave requests yet.</div>}</div></section>
+
+  <section className="panel">
+   <div className="panel-head search-panel-head"><div><h2>My guide roster</h2><p>Full CRUD for future availability. Assigned safari dates are protected from edit/delete.</p></div><div className="actions"><div className="dashboard-search"><Search size={17}/><input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search roster date, shift, notes..."/></div><button className="btn btn-dark btn-sm" onClick={()=>setRosterEdit(emptyRoster())}><Plus size={15}/>Add roster</button></div></div>
+   <div className="table-wrap"><table><thead><tr><th>Date</th><th>Shift</th><th>Availability</th><th>Notes</th><th>CRUD actions</th></tr></thead><tbody>{filteredRosters.map(r=><tr key={r.id}><td><b>{r.rosterDate}</b></td><td>{r.shift.replaceAll('_',' ')}</td><td><StatusBadge value={r.available?'AVAILABLE':'UNAVAILABLE'}/></td><td>{r.notes||'—'}</td><td className="actions"><button className="mini-action" onClick={()=>setRosterEdit({...r})}><Pencil size={13}/>Edit</button><button className="mini-action danger" onClick={()=>deleteRoster(r)}><Trash2 size={13}/>Delete</button></td></tr>)}</tbody></table>{!filteredRosters.length&&<div className="empty compact">No roster entries yet. Add your availability for future safari dates.</div>}</div>
+  </section>
+
+  <section className="panel" id="guide-assignments"><div className="panel-head search-panel-head"><div><h2>My safari assignments</h2><p>Review visitor needs and update the operational trip state.</p></div><div className="dashboard-search"><Search size={17}/><input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search booking ID, package, date, visitor needs..."/></div></div><div className="assignment-grid">{filteredItems.map(a=><div className="trip-card" key={a.id}><div className="trip-card-top"><div><small>{a.booking.visitDate}</small><h3>{a.booking.safariPackage.name}</h3></div><StatusBadge value={a.status}/></div><div className="trip-details"><span>Booking <b>{a.booking.bookingCode}</b></span><span>Visitors <b>{a.booking.visitorCount}</b></span><span>Meeting / route <b>{a.booking.safariPackage.routeZone}</b></span><span>Jeep <b>{a.vehicle.registrationNo}</b></span><span>Special needs <b>{a.booking.specialRequirements||'None recorded'}</b></span></div><div className="trip-actions">{a.status==='ASSIGNED'&&<><button onClick={()=>updateStatus(a.id,'ACCEPTED')}>Accept</button><button onClick={()=>updateStatus(a.id,'DECLINED')}>Decline</button></>}{a.status==='ACCEPTED'&&<button onClick={()=>updateStatus(a.id,'IN_PROGRESS')}>Start trip</button>}{a.status==='IN_PROGRESS'&&<span className="pending-note">Trip completion is recorded by the assigned driver after Park Officer checkout.</span>}<button onClick={()=>setIncident(a)}>Report incident</button></div></div>)}</div></section>
+
+  <Modal open={!!rosterEdit} title={rosterEdit?.id?'Edit guide roster':'Add guide roster'} onClose={()=>setRosterEdit(null)}>
+   {rosterEdit&&<div className="modal-body form-grid"><label>Roster date<input type="date" min={today()} value={rosterEdit.rosterDate} onChange={e=>setRosterEdit({...rosterEdit,rosterDate:e.target.value})}/></label><label>Shift<select value={rosterEdit.shift} onChange={e=>setRosterEdit({...rosterEdit,shift:e.target.value})}><option value="MORNING">Morning</option><option value="AFTERNOON">Afternoon</option><option value="FULL_DAY">Full day</option></select></label><label className="check span2"><input type="checkbox" checked={!!rosterEdit.available} onChange={e=>setRosterEdit({...rosterEdit,available:e.target.checked})}/> Available for assignment</label><label className="span2">Notes<textarea rows="4" maxLength="500" value={rosterEdit.notes||''} onChange={e=>setRosterEdit({...rosterEdit,notes:e.target.value})} placeholder="Example: Available from Palatupana gate after 5:00 AM"/></label><button className="btn btn-dark span2" onClick={saveRoster}>Save roster entry</button></div>}
+  </Modal>
+
+  <Modal open={leaveOpen} title="Request leave" onClose={()=>setLeaveOpen(false)}><div className="modal-body form-grid"><label>Start date<input type="date" min={today()} value={leaveForm.startDate} onChange={e=>setLeaveForm({...leaveForm,startDate:e.target.value,endDate:leaveForm.endDate<e.target.value?e.target.value:leaveForm.endDate})}/></label><label>End date<input type="date" min={leaveForm.startDate||today()} value={leaveForm.endDate} onChange={e=>setLeaveForm({...leaveForm,endDate:e.target.value})}/></label><label className="span2">Reason / note<textarea rows="5" maxLength="1000" value={leaveForm.note} onChange={e=>setLeaveForm({...leaveForm,note:e.target.value})} placeholder="Explain the leave request for the administrator..."/></label><button className="btn btn-dark span2" disabled={!leaveForm.note.trim()||!leaveForm.startDate||!leaveForm.endDate} onClick={requestLeave}><Send size={15}/>Send leave request to Admin</button></div></Modal>
+
+  <Modal open={!!incident} title="Record safari incident" onClose={()=>setIncident(null)}><div className="modal-body"><label>Incident type<input value={incidentForm.type} onChange={e=>setIncidentForm({...incidentForm,type:e.target.value})}/></label><label>Details<textarea rows="5" value={incidentForm.details} onChange={e=>setIncidentForm({...incidentForm,details:e.target.value})}/></label><button className="btn btn-dark full" onClick={report}>Submit incident record</button></div></Modal>
+ </DashboardShell>
+}

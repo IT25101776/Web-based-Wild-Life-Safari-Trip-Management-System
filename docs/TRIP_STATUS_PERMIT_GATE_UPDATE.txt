@@ -1,0 +1,31 @@
+SAFARI LANKA - TRIP STATUS & DIGITAL PERMIT GATE UPDATE
+
+1. Tourist dashboard
+- Added My Bookings / Trip Status tabs.
+- Added Trip Status link in the tourist left navigation.
+- Trip Status follows: payment -> safari team assignment -> permit review/issue -> check-in -> ongoing -> check-out.
+- Permit/gate tracking stays locked until payment is successful and all required vehicles, drivers and guides are assigned.
+- Booking Details now shows permit decision reason, reviewer name/role, issue time, check-in and check-out status.
+- The digital permit modal also shows decision and gate status details.
+
+2. Park / Gate Officer dashboard
+- Added separate Permit Review, Validate Digital Permit and Incidents tabs.
+- Permit review is available only after payment is PAID, booking is CONFIRMED, and every required vehicle/driver/guide assignment is complete.
+- Approving a permit issues it immediately and records the reviewer login, name and role.
+- Permit ID is clickable. Clicking it copies the permit ID and loads it into Validate Digital Permit automatically.
+- Check-in records park entry and changes the trip display to Ongoing.
+- Check-out records park exit.
+- Academic/demo gate validation does not block check-in based on the current calendar date.
+
+3. System Administrator
+- Booking Full Details now shows permit decision reason, reviewer identity, issue time, check-in and check-out information.
+
+4. Database
+- Added permit reviewer and gate-action audit fields:
+  decision_by_email
+  decision_by_name
+  decision_by_role
+  checked_in_by_email
+  checked_out_by_email
+- Full SQL updated.
+- UPGRADE_PERMIT_TRIP_STATUS.sql included for existing databases.

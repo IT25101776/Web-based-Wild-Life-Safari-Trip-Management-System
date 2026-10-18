@@ -1,0 +1,35 @@
+Safari Lanka - Final Polish Update
+Date: 2026-10-15
+
+1. Kavi 3D assistant
+- Kavi now faces the visitor directly at all times.
+- Head/body cursor rotation was removed.
+- The raised hand keeps a friendly hello-wave animation.
+- A small "Hi!" bubble reinforces the greeting.
+- Existing clickable Safari Assistant panel and workflow help remain unchanged.
+
+2. Dark-mode visibility
+- Demo login cards on the Sign In page now use high-contrast dark backgrounds, bright role names and readable emails.
+- Authentication headings, helper text, password-eye button and demo-login separator were strengthened.
+- Additional contrast hardening was added for booking helper text, price details, visitor controls, dashboard support text, permit/review information and other muted text.
+
+3. Booking pricing policy
+- Children below 5 years are FREE of the package per-person charge.
+- Adults and children aged 5-11 are chargeable visitors.
+- Children below 5 still count toward total visitor capacity and the six-person-per-vehicle rule.
+- If the total group requires an extra vehicle, the existing additional-vehicle surcharge still applies.
+- The frontend estimate and backend create/edit calculation now use the same policy.
+
+4. Park Compliance label
+- The Park Officer tab previously shown as "Gate Compliance CRUD" is now "Park Compliance".
+- Visible headings and edit/new modal titles use Park Compliance wording.
+- Existing backend API/controller/entity/table names are retained for backward compatibility and to avoid breaking stored data.
+
+5. Existing features retained
+- Global success/error activity feedback popups.
+- Clickable notifications with full message popup and related destination actions for all roles.
+- Operator confirmation before tourist payment.
+- Finance approval gate for bank transfers.
+- Driver completion only after Park Officer checkout.
+- Simplified visitor-count booking form and multi-vehicle logic.
+- Leave/assignment conflict checks, permit workflow, Trip Status, reviews, incidents, contact requests, dark/light theme, languages/currency, Admin GPS map and other previously implemented features.

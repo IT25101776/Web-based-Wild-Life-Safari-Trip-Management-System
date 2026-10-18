@@ -1,0 +1,103 @@
+SAFARI LANKA - MEMBER-WISE DESIGN PATTERNS IMPLEMENTED
+=======================================================
+
+This build extends the existing Safari Lanka project so every one of the six
+member functions has at least one clear, simple design-pattern implementation.
+The selections follow the patterns taught in the supplied SLIIT Lab 06 and
+Design Pattern lecture materials.
+
+MEMBER 1 - Tourist Booking, Visitor Group & Permit Application
+Pattern: Factory Pattern
+Package: com.safarilanka.service.identity
+Files:
+- IdentityValidator.java
+- NicIdentityValidator.java
+- PassportIdentityValidator.java
+- IdentityValidatorFactory.java
+Integration:
+- BookingController asks IdentityValidatorFactory for the correct validator.
+- Existing NIC rules (12 digits OR 9 digits + V) and Passport rules are preserved.
+
+MEMBER 2 - Safari Package, Route, Time Slot & Pricing
+Pattern: Strategy Pattern
+Package: com.safarilanka.service.pricing
+Files:
+- PricingStrategy.java
+- PricingResult.java
+- SingleVehiclePricingStrategy.java
+- MultiVehiclePricingStrategy.java
+- PricingContext.java
+Integration:
+- BookingController delegates total/surcharge calculation to PricingContext.
+- Existing 6-visitors-per-vehicle and extra-vehicle fee behavior is preserved.
+
+MEMBER 3 - Jeep Driver & Vehicle Maintenance
+Pattern: Observer Pattern
+Package: com.safarilanka.service.maintenance.observer
+Files:
+- MaintenanceObserver.java
+- AdminMaintenanceObserver.java
+- OperatorMaintenanceObserver.java
+- VehicleMaintenanceSubject.java
+Integration:
+- VehicleController notifies observers after maintenance is reported or status changes.
+- Observer reactions are written to the existing audit activity so no new database
+  table or UI workflow is required.
+
+MEMBER 4 - Safari Guide Roster & Trip Assignment
+Pattern: Strategy Pattern
+Package: com.safarilanka.service.assignment
+Files:
+- AssignmentStrategy.java
+- ManualAssignmentStrategy.java
+- AvailabilityFirstAssignmentStrategy.java
+- AssignmentStrategyContext.java
+Integration:
+- AssignmentController uses the MANUAL strategy to preserve the current UI behavior.
+- AVAILABILITY_FIRST is included as a second interchangeable strategy for demonstration
+  and future automatic assignment.
+- Existing same-day conflict checks and automatic driver-linked vehicle assignment remain.
+
+MEMBER 5 - Payment, Invoice, Cancellation & Refund
+Pattern: Strategy Pattern
+Package: com.safarilanka.service.payment
+Files (already present in the previous build):
+- PaymentStrategy.java
+- PaymentStrategyCommand.java
+- CardPaymentStrategy.java
+- BankTransferPaymentStrategy.java
+- PaymentContext.java
+Integration:
+- PaymentController delegates card/bank behavior through the Strategy Pattern.
+- Operator confirmation, Finance approval, rejection reason and assignment locks remain.
+
+MEMBER 6 - Park Entry, Digital Permit Validation & Compliance
+Pattern: Decorator Pattern
+Package: com.safarilanka.service.permit.validation
+Files:
+- PermitValidator.java
+- BasicPermitValidator.java
+- PermitValidatorDecorator.java
+- PaymentCheckDecorator.java
+- BookingConfirmationDecorator.java
+- AssignmentCheckDecorator.java
+- PermitValidationContext.java
+Integration:
+- PermitController runs the decorator chain before permit review.
+- Existing payment, booking-confirmation and complete-assignment rules are preserved.
+
+DATABASE
+--------
+No new database table or column is required for these design-pattern refactors.
+The existing database/SAFARI_LANKA_FULL.sql remains the complete SQL for this build.
+
+REPORT
+------
+See docs/Safari_Lanka_Member_Wise_Design_Patterns.pdf for member-wise explanations,
+code examples, strength ranking, diagrams and viva answers.
+
+VALIDATION NOTE
+---------------
+The Java source structure and edited integration points were checked. A complete Maven
+compile could not be run in the artifact environment because the Maven wrapper attempted
+to download Maven from repo.maven.apache.org and network download was unavailable.

@@ -1,0 +1,126 @@
+SAFARI LANKA - MEMBER-WISE CRUD UPDATE
+======================================
+
+This build adds a clear CRUD demonstration for all six member functions while preserving
+historical safari, payment, permit and assignment records through safe soft-delete/archive
+rules where a real system should not hard-delete operational history.
+
+MEMBER 1 - TOURIST BOOKING / VISITOR GROUP / PERMIT APPLICATION
+---------------------------------------------------------------
+CRUD entity: Booking (with nested Visitor records)
+CREATE : Tourist creates a booking and visitor group.
+READ   : Tourist / Operator / Admin read booking, visitors, permit and assignment details.
+UPDATE : Tourist can edit a PENDING + UNPAID booking before Operator confirmation/payment.
+DELETE : Tourist can Withdraw a PENDING + UNPAID booking using DELETE /api/bookings/{id}.
+         It is a safe soft delete: booking becomes CANCELLED and history remains.
+
+New endpoints:
+PUT    /api/bookings/{id}
+DELETE /api/bookings/{id}
+
+MEMBER 2 - PACKAGE / ROUTE / TIME SLOT / PRICING
+-------------------------------------------------
+CRUD entity: Safari Package
+CREATE : Add package.
+READ   : Browse/manage packages.
+UPDATE : Edit price, route, time slot, limits, images/videos.
+DELETE : Existing safe package delete/soft-delete flow.
+
+MEMBER 3 - DRIVER / VEHICLE MAINTENANCE
+---------------------------------------
+CRUD entity: Vehicle Maintenance Request
+CREATE : Driver reports maintenance for linked jeep.
+READ   : Driver views maintenance history.
+UPDATE : Driver edits SCHEDULED request date/details.
+DELETE : Driver deletes only SCHEDULED requests.
+         IN_PROGRESS / COMPLETED history remains protected.
+
+New endpoints:
+PUT    /api/vehicles/maintenance/{recordId}
+DELETE /api/vehicles/maintenance/{recordId}
+
+Admin vehicle CRUD is also completed with a safe archive operation:
+DELETE /api/vehicles/{id} -> vehicle becomes INACTIVE and historical trips stay intact.
+
+MEMBER 4 - GUIDE ROSTER / TRIP ASSIGNMENT
+-----------------------------------------
+CRUD entity: Guide Roster
+CREATE : Guide adds future availability.
+READ   : Guide sees own roster; Operator/Admin can read roster data.
+UPDATE : Guide edits future, unused roster entry.
+DELETE : Guide deletes future, unused roster entry.
+
+New table: guide_rosters
+New endpoints:
+GET    /api/guide-rosters/mine
+GET    /api/guide-rosters
+POST   /api/guide-rosters
+PUT    /api/guide-rosters/{id}
+DELETE /api/guide-rosters/{id}
+
+Assignment integration:
+If a guide has roster rows for the safari date, at least one must be available.
+Already-assigned safari dates cannot have their roster entry edited/deleted.
+
+MEMBER 5 - PAYMENT / INVOICE / CANCELLATION / REFUND
+-----------------------------------------------------
+CRUD entity: Refund Request
+CREATE : Tourist submits refund request for a paid booking.
+READ   : Tourist and Finance view requests.
+UPDATE : Tourist edits reason while status is PENDING.
+DELETE : Tourist withdraws pending refund. Status becomes WITHDRAWN instead of removing
+         financial history.
+Finance can still APPROVE / REJECT / PROCESS.
+
+New endpoints:
+PUT    /api/payments/refunds/{id}
+DELETE /api/payments/refunds/{id}
+
+New refund status: WITHDRAWN
+
+MEMBER 6 - PARK ENTRY / DIGITAL PERMIT / COMPLIANCE
+----------------------------------------------------
+CRUD entity: Gate Compliance Record
+CREATE : Park/Gate Officer creates inspection record from a permit.
+READ   : Officer reads own records; Admin sees all compliance history.
+UPDATE : Officer edits DRAFT inspection/check details.
+DELETE : Officer deletes an incorrect DRAFT record.
+FINALIZE: Finalized record becomes read-only compliance history.
+
+New table: gate_compliance_records
+New endpoints:
+GET    /api/compliance/mine
+GET    /api/compliance
+POST   /api/compliance
+PUT    /api/compliance/{id}
+DELETE /api/compliance/{id}
+PATCH  /api/compliance/{id}/finalize
+
+ADMIN STAFF ACCOUNT CRUD
+------------------------
+Admin staff accounts (including Safari Guide, Jeep Driver and Park/Gate Officer) now have:
+CREATE : Add role login.
+READ   : Role-based account tables/details.
+UPDATE : Edit profile/login work settings.
+DELETE : Archive account safely instead of physically deleting historical relationships.
+RESTORE: Restore an archived account.
+
+New user fields:
+archived
+archived_at
+
+New endpoints:
+DELETE /api/admin/users/{id}
+PATCH  /api/admin/users/{id}/restore
+
+DATABASE
+--------
+Full clean-install schema:
+database/SAFARI_LANKA_FULL.sql
+
+Existing database upgrade:
+database/UPGRADE_MEMBER_WISE_CRUD.sql
+
+The Spring Boot DatabaseCompatibilityMigration also creates/adds the required tables/columns
+at startup for compatibility, but the SQL upgrade is recommended for a controlled MySQL
+Workbench update.

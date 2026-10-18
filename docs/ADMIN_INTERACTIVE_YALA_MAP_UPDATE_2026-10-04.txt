@@ -1,0 +1,28 @@
+Safari Lanka - Admin Interactive Yala Operations Map Update
+Date: 2026-10-04
+
+Updated only for System Administrator dashboard.
+
+Features
+- Replaced the static image tracker with a custom-built Yala-only interactive operations map.
+- Mouse-wheel zoom, + / - buttons, reset button, drag-to-pan and double-click zoom.
+- Map speed automatically follows zoom level:
+  * zoomed out -> slow vehicle movement
+  * default -> deliberately slow vehicle movement
+  * zoomed in -> faster vehicle movement
+- Booking/trip data refreshes every 1 second.
+- Three demo jeeps are shown by default.
+- Real checked-in / in-progress assigned safaris are added automatically.
+- Custom jeep GPS icon.
+- Hover jeep -> quick safari card.
+- Click jeep -> detailed side panel; Show full safari details opens the existing admin booking modal.
+- Yala safari gate markers with operational details.
+- Yala Blocks I-V markers with access, highlights and visitor context.
+- Premium light and dark map palettes.
+- Stronger dark-mode text contrast on dashboard labels, helper text, tables and details.
+
+Important
+The custom map is a schematic campus-project operations visualization. It is not an official navigation chart or an external Google Maps feed.
+
+Database
+No new database schema is required for this map update. The complete existing SQL remains valid.

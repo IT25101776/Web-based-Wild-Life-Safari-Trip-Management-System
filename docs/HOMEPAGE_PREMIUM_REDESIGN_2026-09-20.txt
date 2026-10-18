@@ -1,0 +1,14 @@
+HOMEPAGE PREMIUM REDESIGN UPDATE
+
+Changes included:
+- Public top navigation redesigned into a transparent liquid-glass style.
+- Navigation items now have a subtle pop / scale hover animation.
+- Home hero copy redesigned for a more premium look.
+- Existing background safari video preserved.
+- Removed the old "From booking to park gate" section from the home page.
+- Added new home scroll sections in this order:
+  1. Experience
+  2. About Yala
+  3. Contact Us
+- Added premium teaser cards and CTA buttons linking to the related pages.
+- Contact Us teaser added at the bottom of the home page.

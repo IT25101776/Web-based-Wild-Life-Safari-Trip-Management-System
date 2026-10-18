@@ -1,0 +1,18 @@
+Kavi Safari Assistant Update — Head Look + Hello Hand Wave
+Date: 2026-10-15
+
+Changes made:
+1. Kavi's full body no longer follows the mouse cursor.
+2. Only Kavi's head now tracks the mouse direction.
+3. Kavi keeps a friendly raised-hand hello animation.
+4. The assistant popup, quick actions, FAQ replies, floating layout, dark mode and mobile behavior remain available.
+5. Reduced-motion users and touch-only devices keep a stable simplified behavior.
+
+Updated files:
+- frontend/src/components/SafariBot.jsx
+- frontend/src/styles.css
+
+Notes:
+- The body remains centered and floating.
+- The head uses left / center / right look frames.
+- The raised hand is animated with a looping wave motion.

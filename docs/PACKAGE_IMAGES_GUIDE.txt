@@ -1,0 +1,31 @@
+PACKAGE IMAGES GUIDE
+
+Default generated package images are stored in:
+frontend/public/images/packages/
+
+Included files:
+- yala-dawn-leopard-quest.png
+- elephant-birdlife-explorer.png
+- golden-hour-sunset-safari.png
+- wildlife-photography-drive.png
+- family-discovery-safari.png
+- full-day-yala-explorer.png
+
+To use your own package image:
+1. Copy a JPG, PNG or WEBP into frontend/public/images/packages/
+2. Use an image URL like /images/packages/your-file-name.jpg in the Safari Operator package form,
+   OR use the Browse device gallery upload in the Safari Operator dashboard.
+
+Recommended image type:
+- Wide landscape wildlife or safari photos
+- 16:9 ratio, for example 1600x900 or 1920x1080
+- JPG, PNG or WEBP
+- Keep files under about 2 MB for faster loading
+
+Good image subjects by package type:
+- Leopard package: leopard on rock / dawn scene
+- Elephant package: elephants near water with birds
+- Sunset package: jeep and orange sunset
+- Photography package: jeep photographer + leopard/wildlife
+- Family package: family in jeep watching animals
+- Full-day package: wide Yala landscape with multiple animals

@@ -1,0 +1,30 @@
+Safari Lanka update: account deletion, staff login rename and tourist-only Kavi chatbot
+
+1. Admin account deletion now has two stages.
+   - Delete Account disables/archives the login while preserving history.
+   - Deleted accounts show Restore Account and Delete permanently.
+   - Permanent deletion opens a high-risk warning and requires typing DELETE.
+   - Directly linked database records are removed; staff string identifiers on other records are cleared where needed.
+   - The logged-in administrator cannot delete their own account and the last active System Administrator is protected.
+
+2. Staff name/login email policy.
+   - Staff cannot directly edit their full name or role-based login email in My Account.
+   - My Account shows Request name / email change under Email.
+   - Staff enter the requested new full name and see the generated protected-role email preview.
+   - System Admin reviews requests in Account Change Requests.
+   - Approval updates the staff full name and automatically generates the new role-domain email.
+   - Admin Edit Account also automatically regenerates a staff email only when the staff name actually changes.
+   - The role/domain portion (operator, guide, driver, park, finance, admin) cannot be changed by the request.
+
+3. Tourist email policy.
+   - Tourist users can directly change their email from My Account.
+   - A new JWT is issued after the email update so the current session continues.
+
+4. Kavi chatbot.
+   - Kavi is now shown only to logged-in TOURIST users.
+   - System Admin controls Kavi globally with the chatbot.enabled System Setting.
+   - Kavi stays front-facing and keeps the friendly raised-hand hello wave.
+   - A small X hides/minimizes Kavi; a compact Kavi button restores it later.
+
+Fresh database setup: database/SAFARI_LANKA_FULL.sql
+Existing database: the application compatibility migration creates missing structures automatically, or run database/UPGRADE_ACCOUNT_DELETE_CHATBOT_EMAIL_CHANGE.sql.

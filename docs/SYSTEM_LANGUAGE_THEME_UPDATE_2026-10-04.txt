@@ -1,0 +1,42 @@
+SAFARI LANKA - SYSTEM LANGUAGE + THEME UPDATE
+
+Implemented:
+1. Five supported system languages:
+   - English
+   - Sinhala
+   - Tamil
+   - Hindi
+   - Chinese
+
+2. Registration page:
+   - Searchable country selector.
+   - Country automatically selects its main supported system language:
+       Sri Lanka -> Sinhala
+       India -> Hindi
+       China -> Chinese
+       Other supported countries -> English
+   - Searchable System Language selector allows the tourist to override the automatic choice.
+   - Selecting a language during registration does not immediately translate the registration form.
+     It is saved to the new account and applied after registration/sign-in.
+   - Currency still auto-selects from country.
+
+3. My Account:
+   - Preferred Language renamed to System Language.
+   - Searchable language selector.
+   - Searchable country selector.
+   - Searchable display-currency selector.
+   - Saving System Language immediately updates the application interface and persists it to the user account.
+
+4. Translation behavior:
+   - Shared navigation, dashboard navigation, common forms/actions, booking/payment labels and major public-page UI text respond to the selected system language.
+   - Dynamic identifiers, names, booking IDs and user-entered content are not translated.
+
+5. Theme:
+   - Sun/moon theme button added to the top-right public navigation.
+   - Theme button also available in dashboard header.
+   - Light and dark themes apply across public pages, forms, cards, dashboards, tables and modals.
+   - Theme choice is remembered in the browser.
+
+DATABASE:
+No new database column is required. The existing users.preferred_language column is reused.
+Backend validation was expanded to accept ENGLISH, SINHALA, TAMIL, HINDI and CHINESE.

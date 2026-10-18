@@ -1,0 +1,7 @@
+PUBLIC NAVIGATION SCROLL UPDATE
+
+- Removed the compact Safari Lanka title tile that appeared while scrolling.
+- Public navigation is no longer sticky.
+- On Safari Packages, Experience, About Yala, Contact Us and booking/payment pages, the full top navigation appears only at the top of the page and scrolls away naturally with the page.
+- No floating Safari Lanka panel remains while scrolling.
+- Existing routes, booking workflow, dashboards and application features are unchanged.

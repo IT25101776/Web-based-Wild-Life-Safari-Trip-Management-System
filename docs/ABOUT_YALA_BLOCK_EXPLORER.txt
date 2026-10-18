@@ -1,0 +1,36 @@
+ABOUT YALA PREMIUM BLOCK EXPLORER
+
+Route:
+http://localhost:5173/about-yala
+
+Navigation:
+The public navigation "About Yala" link now opens the full interactive page.
+
+Local images:
+frontend/public/images/yala-about/
+
+Included maps from the supplied project images:
+- yala-overview-map.jpg
+- block-1-map.jpg
+- yala-regional-blocks-map.jpg
+- block-2-map.jpg
+- block-3-map.jpg
+- block-4-map.jpg
+- block-5-map.jpg
+
+The page also uses local wildlife images copied from the project's generated package image set.
+
+Features:
+- Premium full-width hero
+- Yala quick facts
+- Selectable Overview + Block I–V tabs
+- Block-specific description, visitor-access note, highlights and planning guidance
+- Block map + wildlife image for every selection
+- Three-map gallery
+- Responsible-visiting section
+- Responsive desktop/tablet/mobile layout
+
+To change a block image later, replace the matching image in:
+frontend/public/images/yala-about/
+
+No booking, payment, package, account, role, database or dashboard workflow was changed by this update.

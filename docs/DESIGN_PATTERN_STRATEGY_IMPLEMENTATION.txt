@@ -1,0 +1,72 @@
+SAFARI LANKA - DESIGN PATTERN IMPLEMENTATION
+=============================================
+
+Purpose
+-------
+This update introduces an explicit GoF Strategy Pattern for the payment workflow while preserving the existing card-payment and bank-transfer behavior.
+
+Lab alignment
+-------------
+The IT2020 Lab 06 Design Patterns sheet describes Strategy as:
+- a Strategy interface defining common behavior,
+- concrete strategies containing different implementations,
+- a Context class that keeps/delegates to a Strategy,
+- the ability to select behavior at runtime.
+
+Safari Lanka mapping
+--------------------
+Strategy interface:
+  backend/src/main/java/com/safarilanka/service/payment/PaymentStrategy.java
+
+Concrete strategies:
+  backend/src/main/java/com/safarilanka/service/payment/CardPaymentStrategy.java
+  backend/src/main/java/com/safarilanka/service/payment/BankTransferPaymentStrategy.java
+
+Context class:
+  backend/src/main/java/com/safarilanka/service/payment/PaymentContext.java
+
+Strategy request object:
+  backend/src/main/java/com/safarilanka/service/payment/PaymentStrategyCommand.java
+
+Controller delegation:
+  backend/src/main/java/com/safarilanka/controller/PaymentController.java
+
+Runtime flow
+------------
+CARD:
+Tourist -> PaymentController -> PaymentContext -> CardPaymentStrategy
+       -> validate card -> save PAID payment -> booking payment status PAID
+
+BANK_TRANSFER:
+Tourist -> PaymentController -> PaymentContext -> BankTransferPaymentStrategy
+       -> validate PDF/reference -> save PENDING payment -> Finance review later
+
+Why Strategy is suitable
+------------------------
+Card and bank-transfer payments are two interchangeable ways of performing the same business task: paying for a confirmed safari booking. Their validation and processing rules differ, so putting them into separate strategy classes removes payment-method-specific logic from the controller and makes future payment methods easier to add.
+
+Behavior preserved
+------------------
+- Tourists can only pay after Safari Operator confirmation.
+- Card validation remains 16 digits + MM/YY + CVV validation.
+- Card payments still become PAID immediately in this academic simulation.
+- Bank transfers still require a PDF slip and reference number.
+- Bank transfers remain PENDING until Finance approves/rejects them.
+- Finance rejection reason and approval workflow remain unchanged.
+- Assignment remains blocked until payment is PAID.
+
+Other patterns/architectural patterns already present
+------------------------------------------------------
+1. Strategy Pattern - Explicit / strongest GoF example.
+2. Repository Pattern - Strong Spring Data repository abstraction.
+3. Dependency Injection - Strong constructor injection across backend.
+4. Observer Pattern - Strong frontend MutationObserver language handling.
+5. MVC / Layered Architecture - Strong system-wide architecture.
+6. Provider / Context Pattern - Moderate React Auth/Theme/Language contexts.
+7. Service Layer - Moderate reusable service classes such as AuditService.
+8. State-based Workflow - Conceptual use of BookingStatus/PaymentStatus/PermitStatus; not a complete GoF State implementation.
+9. Singleton-scoped Spring Beans - Framework-managed behavior; not a custom Singleton implementation.
+
+Recommended viva priority
+-------------------------
+Present Strategy Pattern first because it directly follows the Lab 06 structure and is easy to demonstrate with the two payment methods. Use Repository and Dependency Injection as strong supporting patterns, then Observer as a frontend example.

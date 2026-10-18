@@ -1,0 +1,243 @@
+SAFARI LANKA - FULL WEBSITE + MYSQL + NGROK HOSTING GUIDE
+=========================================================
+
+WHAT THIS VERSION DOES
+----------------------
+You only need ONE public ngrok URL.
+
+Internet browser
+      |
+      v
+https://xxxxx.ngrok-free.app  (or ngrok.app)
+      |
+      v
+ngrok -> Vite frontend :5173
+             |
+             +---- /api/* ------> Spring Boot :8080
+             |
+             +---- /uploads/* --> Spring Boot :8080
+                                      |
+                                      v
+                                MySQL localhost:3306
+                                database: safari_lanka
+
+IMPORTANT:
+- MySQL stays on your PC. Do NOT expose MySQL port 3306 with ngrok.
+- SQL data continues to work because Spring Boot connects to local MySQL.
+- Your PC, MySQL, Safari Lanka and ngrok must stay running while other people use the public URL.
+- This is ideal for a campus demo / temporary public sharing. It is not permanent production hosting.
+
+---------------------------------------------------------
+A. FIRST-TIME REQUIREMENTS
+---------------------------------------------------------
+1. Java 17 installed.
+2. Node.js installed.
+3. MySQL Server running.
+4. Database credentials expected by default:
+       database : safari_lanka
+       username : root
+       password : 1234
+5. ngrok installed and authenticated.
+
+Windows ngrok install example:
+    winget install ngrok -s msstore
+
+Add your ngrok account authtoken ONE TIME:
+    ngrok config add-authtoken YOUR_AUTHTOKEN
+
+Do not put your authtoken inside this project or share it with anyone.
+
+---------------------------------------------------------
+B. SET UP THE MYSQL DATABASE
+---------------------------------------------------------
+If you already have your working safari_lanka database with data:
+    DO NOT run the full reset SQL.
+    Keep using your current database.
+
+Optional compatibility script for old uploaded package image URLs:
+    database\NGROK_EXISTING_DATABASE_FIX.sql
+
+If this is a new PC / new database:
+    1. Start MySQL Server.
+    2. Double-click SETUP_DATABASE.bat
+       OR import database\SAFARI_LANKA_FULL.sql in MySQL Workbench.
+
+WARNING:
+SETUP_DATABASE.bat uses the full SQL file and can recreate the database.
+Do not use it over important existing data unless you intend to reset it.
+
+---------------------------------------------------------
+C. EASIEST WAY TO HOST THE WHOLE WEBSITE
+---------------------------------------------------------
+1. Start MySQL Server.
+2. Double-click:
+       HOST_WITH_NGROK.bat
+3. Wait for Spring Boot and Vite to start.
+4. ngrok will then start automatically.
+5. ngrok will display a public HTTPS Forwarding URL.
+   Example only:
+       https://abcd-1234.ngrok-free.app
+6. Open that HTTPS URL on another phone/computer.
+7. Share ONLY that ngrok HTTPS URL.
+
+Everything should work through the same URL:
+- Public home page
+- Tourist register/login
+- Packages and package media
+- Booking
+- Card and bank-transfer workflows
+- Finance approval/rejection
+- Admin / Operator / Guide / Driver / Park / Finance dashboards
+- Permit workflow
+- GPS map
+- Contact requests
+- Reviews
+- Profile images
+- Package uploads
+- MySQL data reads/writes
+
+---------------------------------------------------------
+D. COMMAND-LINE METHOD
+---------------------------------------------------------
+From the project root:
+
+    npm run host:ngrok
+
+Or run manually in two terminals:
+
+Terminal 1:
+    npm run dev
+
+Terminal 2:
+    ngrok http 5173
+
+Do NOT use a second ngrok tunnel for port 8080 in this version.
+The frontend proxies /api requests to Spring Boot automatically.
+
+---------------------------------------------------------
+E. WHY THE PROJECT WAS CHANGED
+---------------------------------------------------------
+Old frontend behavior:
+    http://<browser-hostname>:8080/api
+
+That works on localhost/LAN but breaks when an external visitor opens an
+HTTPS ngrok URL because their browser cannot reach your local :8080 backend
+and HTTPS pages should not call a plain HTTP backend.
+
+New behavior:
+    /api
+
+The browser calls the SAME ngrok website origin. Vite forwards /api to
+localhost:8080 on your own PC. Therefore:
+- no public backend URL is needed
+- no mixed-content problem
+- no remote localhost problem
+- normal JWT authentication continues to work
+- SQL remains private and local
+
+Vite also proxies /uploads so uploaded package images are available remotely.
+
+---------------------------------------------------------
+F. FILES CHANGED FOR NGROK
+---------------------------------------------------------
+frontend\vite.config.js
+    - host 0.0.0.0
+    - ngrok allowed hosts
+    - /api proxy -> localhost:8080
+    - /uploads proxy -> localhost:8080
+
+frontend\src\utils\api.js
+    - API base URL changed to /api
+    - normalizes old local /uploads image URLs
+
+frontend\src\components\PackageCard.jsx
+frontend\src\pages\BookingPage.jsx
+frontend\src\pages\dashboards\OperatorDashboard.jsx
+    - use normalized uploaded package image URL
+
+backend\src\main\java\com\safarilanka\controller\PackageController.java
+    - uploaded package image URL is returned as /uploads/... instead of
+      an absolute localhost backend URL
+
+package.json
+scripts\run-ngrok.mjs
+HOST_WITH_NGROK.bat
+    - one-command ngrok hosting workflow
+
+---------------------------------------------------------
+G. TROUBLESHOOTING
+---------------------------------------------------------
+1. Website opens but API requests fail
+   - Check the Safari Lanka terminal.
+   - Backend must be running on 8080.
+   - MySQL must be running.
+   - Test locally: http://localhost:5173
+
+2. Backend says database connection failed
+   - Start MySQL Server.
+   - Verify database: safari_lanka
+   - Verify username: root
+   - Verify password: 1234
+   - If your MySQL credentials differ, set DB_USERNAME / DB_PASSWORD / DB_URL.
+
+3. ngrok says authentication failed
+   Run once:
+       ngrok config add-authtoken YOUR_AUTHTOKEN
+
+4. ngrok page shows Vite host blocked
+   This project already allows:
+       *.ngrok-free.app
+       *.ngrok.app
+   Make sure you are using this updated ZIP.
+
+5. Public URL stops working
+   - The free/public URL only works while ngrok is running.
+   - If you restart ngrok, your assigned URL may change depending on your plan.
+
+6. Uploaded package image is broken on ngrok
+   - New uploads already use a relative /uploads URL.
+   - For older database records run:
+       database\NGROK_EXISTING_DATABASE_FIX.sql
+
+7. Port already in use
+   Required ports:
+       Vite       5173
+       Spring     8080
+       MySQL      3306
+   Stop the old process using the conflicting port and start again.
+
+---------------------------------------------------------
+H. SECURITY NOTE
+---------------------------------------------------------
+The ngrok URL makes your website reachable from the internet.
+Your application login/roles still protect dashboards, but only share the URL
+with people who should access the demo. Do not expose MySQL port 3306.
+Never commit or share your ngrok authtoken, MySQL production password or JWT
+production secret.
+
+END
+
+
+------------------------------------------------------------
+FIX FOR 403 ON LOGIN / REGISTER THROUGH NGROK
+------------------------------------------------------------
+This build explicitly allows HTTPS ngrok origins in Spring Security CORS:
+    https://*.ngrok-free.app
+    https://*.ngrok.app
+
+It also sends the ngrok-skip-browser-warning header on frontend API requests.
+This is important because the browser Origin header is forwarded through the
+Vite proxy to Spring Boot. Without allowing the ngrok origin, Spring can answer
+403 even though /api/auth/login itself is public.
+
+If you still see 403 after replacing the files:
+1. Stop the old app and ngrok window.
+2. Start HOST_WITH_NGROK.bat again.
+3. Open the NEW HTTPS ngrok URL in a private/incognito window.
+4. If ngrok shows its warning page, click Visit Site once.
+5. Try tourist@safarilanka.lk / Tourist@123 again.
+
+
+IMPORTANT - CURRENT NGROK FREE DOMAIN
+-------------------------------------
+Current free ngrok URLs may end in .ngrok-free.dev. This project explicitly allows .ngrok-free.dev, .ngrok-free.app and .ngrok.app.

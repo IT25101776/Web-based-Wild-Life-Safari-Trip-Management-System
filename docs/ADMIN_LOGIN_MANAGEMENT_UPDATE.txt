@@ -1,0 +1,25 @@
+ADMIN LOGIN MANAGEMENT UPDATE
+
+1. My Account now appears LAST in every dashboard sidebar.
+2. System Administrator dashboard has separate tabs for:
+   - Tourist Users
+   - Safari Operators
+   - Safari Guides
+   - Jeep Drivers
+   - Park / Gate Officers
+   - Finance Managers
+   - System Administrators
+   - Add Role Login
+   - System Settings
+   - Audit Activity
+3. Each role tab shows account/contact details, role-specific details, status and management controls.
+4. Guides and drivers also expose Availability and On Leave controls to the administrator.
+5. Add Role Login creates STAFF accounts only. Tourist accounts are created from the public registration page.
+6. Staff email is generated from full name and role. Examples:
+   Nimal Perera + Safari Operator -> nimal.perera@operator.safarilanka.lk
+   Nimal Perera + Safari Guide -> nimal.perera@guide.safarilanka.lk
+   Nimal Perera + Jeep Driver -> nimal.perera@driver.safarilanka.lk
+   Nimal Perera + Park Officer -> nimal.perera@park.safarilanka.lk
+   Nimal Perera + Finance Manager -> nimal.perera@finance.safarilanka.lk
+   Nimal Perera + System Admin -> nimal.perera@admin.safarilanka.lk
+7. Same-day tourist bookings are blocked. The earliest selectable booking date is tomorrow.

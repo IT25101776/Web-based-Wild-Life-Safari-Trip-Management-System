@@ -1,0 +1,51 @@
+SAFARI LANKA - INTELLIJ GREEN RUN
+=================================
+
+This project includes a shared IntelliJ run configuration:
+
+    Safari Lanka - FULL SYSTEM
+
+It runs the root command:
+
+    npm run dev
+
+That command starts BOTH:
+- Spring Boot backend on port 8080
+- Vite frontend on port 5173
+
+FIRST OPEN
+----------
+1. Open IntelliJ IDEA.
+2. Choose File > Open.
+3. Select the WHOLE Safari_Lanka folder (not only backend).
+4. Trust the project if IntelliJ asks.
+5. Make sure JDK 17 is configured.
+6. If needed, right-click backend/pom.xml and choose Add as Maven Project.
+7. Make sure Node.js/npm is configured in IntelliJ Settings > Languages & Frameworks > JavaScript Runtime.
+
+GREEN RUN BUTTON
+----------------
+1. At the top-right run configuration dropdown, select:
+
+       Safari Lanka - FULL SYSTEM
+
+2. Click the green Run triangle.
+
+The Run console will show the same combined [api] and [web] output as:
+
+    npm run dev
+
+The first frontend run installs frontend dependencies automatically if they are missing.
+Press the red Stop button in IntelliJ to stop the full system.
+
+MANUAL TERMINAL RUN
+-------------------
+You can still run from the project root:
+
+    npm install
+    npm run dev
+
+DATABASE
+--------
+Run SETUP_DATABASE.bat only when database setup/reset is needed.
+MySQL must be running before starting the application.

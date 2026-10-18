@@ -1,0 +1,10 @@
+Safari Lanka package video update
+
+- All six default packages include local MP4 hover-preview videos.
+- Default videos are in frontend/public/videos/packages/ and use package-specific filenames.
+- Tourist package cards play the matching muted video while the mouse is over the package image and stop/reset when the mouse leaves.
+- Booking selected-package image also has hover video preview.
+- Safari Operator Create Package and Edit Package support local MP4/WEBM upload, URL editing, preview, replacement and removal.
+- Operator-uploaded videos are saved into frontend/public/videos/packages/.
+- video_url is stored on safari_packages.
+- Existing databases can use database/UPGRADE_PACKAGE_VIDEOS.sql; Hibernate ddl-auto=update also adds the column automatically.

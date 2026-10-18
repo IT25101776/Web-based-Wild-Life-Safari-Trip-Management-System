@@ -1,0 +1,22 @@
+Safari Lanka Update — Kavi Controls + Admin Self Profile
+Date: 2026-10-15
+
+1. Kavi assistant control spacing
+- Moved the X/minimize button to Kavi's upper-left side.
+- Moved the Hi bubble to the upper-right side.
+- The controls no longer overlap and remain visible on desktop and mobile.
+- The existing minimize-to-small-Kavi-button behavior remains unchanged.
+
+2. System Administrator My Account
+- Removed the name/email change request option for SYSTEM_ADMIN users.
+- System Administrators can now directly edit their own full name.
+- System Administrators can now directly edit their own login email.
+- When an Administrator changes their email, a fresh authentication token is returned so the current session continues correctly.
+- Duplicate and invalid email addresses are rejected.
+- Staff roles such as Operator, Guide, Driver, Park Officer and Finance still use the Admin-approved rename/login-email request workflow.
+- Tourists still change their own email directly.
+
+Backend updates
+- /api/auth/account now permits SYSTEM_ADMIN to update their own full name.
+- PUT /api/auth/admin-email added for direct Administrator email changes.
+- Account change request endpoint rejects SYSTEM_ADMIN requests because Administrators can self-manage their own name/email.

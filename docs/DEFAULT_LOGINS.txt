@@ -1,0 +1,31 @@
+SAFARI LANKA - DEFAULT DEMO LOGINS
+
+Tourist / Visitor Group Leader
+Email: tourist@safarilanka.lk
+Password: Tourist@123
+
+Safari Operations Manager
+Email: operator@safarilanka.lk
+Password: Operator@123
+
+Safari Guide / Naturalist
+Email: guide@safarilanka.lk
+Password: Guide@123
+
+Jeep Driver
+Email: driver@safarilanka.lk
+Password: Driver@123
+
+Authorized Park / Gate Officer
+Email: park@safarilanka.lk
+Password: Park@123
+
+Finance & Administration Manager
+Email: finance@safarilanka.lk
+Password: Finance@123
+
+System Administrator
+Email: admin@safarilanka.lk
+Password: Admin@123
+
+Academic prototype only. Payment processing is simulated.

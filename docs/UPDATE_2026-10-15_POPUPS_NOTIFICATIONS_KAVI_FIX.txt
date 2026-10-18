@@ -1,0 +1,57 @@
+Safari Lanka Update — Activity Popups, Clickable Notifications and Kavi Fix
+Date: 2026-10-15
+
+1. Global action popup messages
+- Successful POST / PUT / PATCH / DELETE activities now show a centered popup card.
+- Popups use a green SUCCESS style similar to the provided reference.
+- Failed server actions show a red ATTENTION popup.
+- Messages are tailored for common Safari Lanka workflows including booking, payment, bank review, permits, gate check-in/check-out, assignments, leave, guide roster, incidents, packages, maintenance, compliance, contact requests, users and settings.
+- Notification read/unread API operations remain quiet so opening a notification does not create another action popup.
+
+2. Clickable notification inbox for every dashboard role
+- Every notification card can be clicked.
+- Clicking opens the complete notification in a centered popup.
+- The notification is marked as read.
+- The popup provides a role-aware related action button.
+- Examples:
+  * Tourist permit / gate / trip notification -> Trip Status
+  * Operator booking / payment -> Bookings tab
+  * Operator assignment -> Assignments tab
+  * Finance bank review -> Bank deposits awaiting approval
+  * Finance refund -> Refund workflow
+  * Park permit -> Permit Review
+  * Park gate notification -> Validate Digital Permit
+  * Guide / Driver trip notification -> Assigned Trips
+  * Admin leave -> Leave Requests
+  * Admin contacts -> Contact Requests
+
+3. Dashboard deep-link support
+- Operator and Park Officer dashboards can open the correct tab from a notification.
+- Finance, Guide and Driver dashboards support direct scroll-to related sections.
+
+4. Kavi chatbot fix
+- Kavi's body no longer rotates or follows the mouse.
+- Only Kavi's head changes direction toward the mouse side (left / center / right).
+- The head movement is image-frame based, without CSS 3D body rotation.
+- Kavi's raised hand performs a continuous friendly hello wave.
+- The assistant panel and all Safari Lanka quick actions remain unchanged.
+
+Key frontend files changed:
+- src/App.jsx
+- src/components/ActionFeedback.jsx
+- src/components/DashboardShell.jsx
+- src/components/SafariBot.jsx
+- src/pages/NotificationsPage.jsx
+- src/pages/dashboards/OperatorDashboard.jsx
+- src/pages/dashboards/ParkDashboard.jsx
+- src/pages/dashboards/FinanceDashboard.jsx
+- src/pages/dashboards/GuideDashboard.jsx
+- src/pages/dashboards/DriverDashboard.jsx
+- src/utils/api.js
+- src/utils/feedback.js
+- src/styles.css
+- public/models/kavi-parts/*
+
+Validation:
+- All frontend JS/JSX files were parsed successfully with Babel parser: 43 files, 0 syntax errors.
+- Full Vite build could not run in this Linux environment because the uploaded node_modules contains Windows Rollup / esbuild native optional dependencies. This is an environment mismatch, not a source-code syntax error.

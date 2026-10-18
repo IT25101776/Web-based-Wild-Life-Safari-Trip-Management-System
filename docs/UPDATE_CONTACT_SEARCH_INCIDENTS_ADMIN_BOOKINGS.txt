@@ -1,0 +1,18 @@
+SAFARI LANKA - CONTACT / SEARCH / INCIDENT / ADMIN BOOKING UPDATE
+
+Added:
+1. Public Contact Us page at /contact with persistent support requests.
+2. Contact requests are visible to System Administrator; status can be NEW, READ or RESOLVED.
+3. Package browse hero now uses local wildlife imagery from the project image set.
+4. Default sample reviews include Sri Lankan and international guest names and are labelled Sample review.
+5. Safari guide incident reports are visible to Safari Operations and System Administration.
+6. Tourist special requirements are shown to Safari Operations, Guide, Driver, Park Officer and System Administrator.
+7. Tourist booking details display the original special requirement/note plus a message explaining it will be reviewed and staff may contact the tourist.
+8. Safari Operations booking search supports booking ID, tourist, package and date.
+9. System Administrator has Manage Safari Bookings, Incident Reports and Contact Requests tabs.
+10. Search fields were added to data-heavy dashboards for booking/payment/permit/trip/account lookup.
+
+Database:
+- New contact_messages table.
+- Fresh install: database/SAFARI_LANKA_FULL.sql
+- Existing database: database/UPGRADE_CONTACT_SUPPORT.sql

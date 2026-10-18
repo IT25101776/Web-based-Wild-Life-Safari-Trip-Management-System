@@ -1,0 +1,30 @@
+ADMIN SIDEBAR + PACKAGE PAGE NAV UPDATE
+
+1. Safari Packages page
+- Full glass navigation is shown at the top of the page.
+- After scrolling down, the wide navigation collapses automatically.
+- Only the compact Safari Lanka brand panel remains visible while browsing package cards.
+- Scrolling back to the top restores the full navigation.
+
+2. System Administrator dashboard
+- Management sections were moved from the wide top tab rows into the left sidebar.
+- Dashboard remains the first item.
+- Login Roles section:
+  Tourist Users
+  Safari Operators
+  Safari Guides
+  Jeep Drivers
+  Park / Gate Officers
+  Finance Managers
+  System Administrators
+- Operations Control section:
+  Manage Safari Bookings
+  Incident Reports
+  Contact Requests
+- Administration Tools section:
+  Add Role Login
+  System Settings
+  Audit Activity
+- My Account remains below the management sections.
+- The right side now becomes the full working area for the selected admin function.
+- The main Dashboard view includes overview cards for Login Roles, Operations Control and Administration Tools.

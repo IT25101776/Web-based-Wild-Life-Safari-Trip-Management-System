@@ -1,0 +1,10 @@
+package com.safarilanka.controller;
+import com.safarilanka.dto.IncidentCreateRequest; import com.safarilanka.model.*; import com.safarilanka.repository.*; import com.safarilanka.service.*; import jakarta.validation.Valid; import org.springframework.security.access.prepost.PreAuthorize; import org.springframework.security.core.Authentication; import org.springframework.web.bind.annotation.*; import java.util.*;
+@RestController @RequestMapping("/api/incidents")
+public class IncidentController {
+ private final IncidentRepository incidents; private final BookingRepository bookings; private final CurrentUserService current; private final AuditService audit; public IncidentController(IncidentRepository i,BookingRepository b,CurrentUserService c,AuditService a){incidents=i;bookings=b;current=c;audit=a;}
+ @PostMapping @PreAuthorize("hasAnyRole('SAFARI_GUIDE','JEEP_DRIVER','PARK_OFFICER','SYSTEM_ADMIN')") public Incident create(@Valid @RequestBody IncidentCreateRequest r,Authentication a){Incident i=new Incident();i.setBooking(bookings.findById(r.bookingId()).orElseThrow(()->new IllegalArgumentException("Booking not found")));i.setReporter(current.get(a));i.setType(r.type());i.setDetails(r.details());incidents.save(i);audit.log(a.getName(),"INCIDENT_CREATE",i.getBooking().getBookingCode()+" / "+i.getType());return i;}
+ @GetMapping @PreAuthorize("hasAnyRole('PARK_OFFICER','SAFARI_OPERATOR','SYSTEM_ADMIN')") public List<Incident> all(){return incidents.findAll();}
+ @GetMapping("/mine") @PreAuthorize("hasAnyRole('SAFARI_GUIDE','JEEP_DRIVER')") public List<Incident> mine(Authentication a){return incidents.findByReporterEmailOrderByCreatedAtDesc(a.getName());}
+ @PatchMapping("/{id}/status") @PreAuthorize("hasAnyRole('PARK_OFFICER','SYSTEM_ADMIN')") public Incident status(@PathVariable Long id,@RequestBody Map<String,String> b,Authentication a){Incident i=incidents.findById(id).orElseThrow();i.setStatus(IncidentStatus.valueOf(b.getOrDefault("status","REVIEWING")));incidents.save(i);audit.log(a.getName(),"INCIDENT_STATUS","#"+id+" -> "+i.getStatus());return i;}
+}

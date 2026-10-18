@@ -1,0 +1,15 @@
+Safari Lanka - ngrok 403 Login Fix
+
+Changed files:
+1. backend/src/main/java/com/safarilanka/config/SecurityConfig.java
+   - Added ngrok HTTPS origins to allowedOriginPatterns.
+2. frontend/src/utils/api.js
+   - Adds ngrok-skip-browser-warning on API calls when hosted on ngrok.
+3. NGROK_HOSTING_GUIDE.txt
+   - Added 403 troubleshooting steps.
+
+Why this fixes it:
+The React browser request originates from the public ngrok HTTPS domain. Vite
+proxies /api to Spring Boot, but the Origin header can still be the ngrok URL.
+Spring Security CORS previously allowed only localhost/LAN origins, so it could
+reject the login request with HTTP 403 before AuthController handled it.

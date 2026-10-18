@@ -1,0 +1,64 @@
+SAFARI LANKA - 2026-10-15 UPDATE SUMMARY
+=========================================
+
+This update modifies the existing project without rebuilding or removing historical data.
+
+1. SRI LANKAN DRIVER LICENCE VALIDATION
+- Driver account create/edit and Driver My Account now normalize licences automatically.
+- Spaces are removed and letters are uppercased.
+- Accepted project formats:
+  * Legacy: B1234567 (one letter + seven digits)
+  * Current numeric card: 85-1234567 (two digits + hyphen + seven digits)
+  * A 9-digit numeric input is normalized to the hyphenated form.
+- Frontend blocks invalid data with a clear message.
+- Backend validates again so invalid values cannot bypass the UI.
+- Safari Guides still do not require a driving licence field.
+
+2. DRIVER COMPLETION AFTER PARK CHECKOUT
+- Driver Complete Trip stays disabled until the digital permit has been checked out.
+- Before checkout, Driver sees: Waiting for Park Officer checkout.
+- Park/Gate Officer CHECK_OUT sets the permit to COMPLETED and records checkedOutAt.
+- Driver must then manually click Complete Trip.
+- Backend verifies that the authenticated driver owns the assignment and that the permit is checked out.
+- Multi-vehicle bookings become booking COMPLETED only after all assigned drivers complete their assignments.
+
+3. SIMPLIFIED TOURIST BOOKING VISITOR GROUP
+- New bookings no longer request each visitor's name, NIC/passport, gender, nationality, or age.
+- Booking form uses four horizontal premium fields:
+  * Adults (minimum 1, default 1)
+  * Child 5-11 years (minimum 0)
+  * Child below 5 years (minimum 0)
+  * Safari Date (tomorrow onward)
+- + / - controls update visitor totals, vehicle count and price immediately.
+- Maximum 6 visitors per vehicle remains unchanged.
+- Extra vehicles and existing additional-vehicle pricing are calculated automatically.
+- New database columns: adult_count, child_five_to_eleven_count, child_below_five_count.
+- Legacy visitors table is preserved for historical bookings. New bookings do not create visitor PII rows.
+- Tourist, Operator, Admin and Park/Permit views now show category counts.
+
+4. GUIDE / DRIVER LEAVE REQUESTS
+- Safari Guide and Driver can submit leave date range + note.
+- Admin receives a notification and has a Leave Requests workspace.
+- Admin can APPROVE or REJECT with an optional admin note.
+- Requester receives the decision in Notifications.
+- Approved leave dates are checked during trip assignment and unavailable staff cannot be assigned.
+
+5. NOTIFICATIONS & MESSAGES FOR EVERY LOGIN
+- Every authenticated role has a Notifications sidebar tab and top bell icon.
+- Bell/sidebar badge shows unread count (1, 2, 3...; 99+ cap in UI).
+- Notification page includes inbox, timestamps, read/unread state and Mark All Read.
+- New booking, booking decision, payment, finance review, assignment, permit/gate, leave, refund, contact and trip-completion events can create notifications.
+- System Administrator can send a notice to:
+  * one login
+  * one complete role
+  * all other active logins
+- Any non-admin login can send a special-needs/message request to System Administration.
+
+DATABASE
+- Full clean database: database/SAFARI_LANKA_FULL.sql
+- Existing database safe upgrade: database/UPGRADE_VISITOR_COUNTS_LEAVE_NOTIFICATIONS.sql
+- New tables: leave_requests, notifications
+- New booking count columns only; legacy visitor records are not deleted.
+
+NGROK
+- Existing working ngrok .dev setup is preserved.

@@ -1,0 +1,28 @@
+SAFARI LANKA - KAVI 3D ASSISTANT CURSOR-FOLLOW UPDATE
+Date: 2026-10-15
+
+What changed
+------------
+1. Kavi now reacts to the desktop mouse cursor like the supplied reference recording.
+2. The bot stays fixed in the bottom-right corner; it does NOT chase or cover the cursor.
+3. Kavi turns to a left, centre, or right 3D view according to the cursor position.
+4. Smooth horizontal body lean and small vertical perspective movement are applied continuously.
+5. Existing floating/wave animation, online indicator, assistant popup, quick actions and Safari Lanka help answers are preserved.
+6. Cursor-follow is automatically disabled for touch/coarse-pointer devices and for users who request reduced motion.
+
+Files changed
+-------------
+frontend/src/components/SafariBot.jsx
+frontend/src/styles.css
+frontend/public/models/kavi-cursor/left.png
+frontend/public/models/kavi-cursor/center.png
+frontend/public/models/kavi-cursor/right.png
+
+How it works
+------------
+- A passive pointermove listener reads the cursor position.
+- requestAnimationFrame smoothly eases the bot toward the cursor direction.
+- The 3D directional sprite changes between left / centre / right.
+- CSS variables add small x/y movement, tilt and perspective so the motion does not look like a flat image switch.
+
+No database or backend change is required for this update.

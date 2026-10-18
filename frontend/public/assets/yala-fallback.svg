@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#d9b45b"/><stop offset=".45" stop-color="#8aa18a"/><stop offset="1" stop-color="#153b2e"/></linearGradient>
+    <linearGradient id="ground" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#0b2e24"/><stop offset="1" stop-color="#1c4f3c"/></linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <circle cx="1220" cy="190" r="95" fill="#f8deb0" opacity=".75"/>
+  <path d="M0 580 Q220 500 430 590 T800 560 T1200 600 T1600 540 V900 H0Z" fill="#315f48" opacity=".8"/>
+  <path d="M0 680 Q250 610 520 675 T1040 650 T1600 690 V900 H0Z" fill="url(#ground)"/>
+  <g fill="#071d17">
+    <path d="M250 560 l30-170 25 170z"/><path d="M210 440 q70-110 140 0 q-70 35-140 0z"/>
+    <path d="M1320 560 l28-150 24 150z"/><path d="M1285 440 q70-95 135 0 q-65 34-135 0z"/>
+  </g>
+  <g transform="translate(780 610)" fill="#071d17">
+    <ellipse cx="0" cy="0" rx="100" ry="43"/><circle cx="88" cy="-28" r="28"/><path d="M105-20 q55 45 35 115 h-16 q5-80-28-100z"/>
+    <rect x="-68" y="25" width="18" height="105" rx="8"/><rect x="28" y="25" width="18" height="105" rx="8"/><path d="M-100-12 q-75 25-85-30" fill="none" stroke="#071d17" stroke-width="12" stroke-linecap="round"/>
+  </g>
+  <text x="80" y="120" font-family="Georgia,serif" font-size="58" fill="#fff" opacity=".92">Yala National Park</text>
+  <text x="82" y="170" font-family="Arial,sans-serif" font-size="22" letter-spacing="8" fill="#eef6f0" opacity=".8">SAFARI LANKA</text>
+</svg>

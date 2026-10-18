@@ -1,0 +1,21 @@
+ADMIN LIVE GPS MAP UPDATE
+
+Scope: System Administrator only.
+
+Features:
+- Premium Yala mini GPS map on the admin overview dashboard.
+- Dedicated "Live Safari Map" item in the admin Operations Control sidebar.
+- Three default simulated safari vehicles are visible for the campus demonstration.
+- Vehicle markers move slowly along predefined Yala safari-style routes.
+- New real trips are added automatically when a permit has been checked in or an assignment is marked IN_PROGRESS.
+- Live booking data refreshes every 10 seconds.
+- Hovering a vehicle marker shows booking, vehicle, driver, guide and package details.
+- Clicking a vehicle selects it and shows a detailed summary panel.
+- "Show full safari details" opens the full booking detail modal for real tracked trips.
+- Yala safari gate markers are included for Palatupana, Katagamuwa and Galge with gate information.
+- Light and dark theme styling is included.
+- Dark-theme text contrast has been increased across admin panels.
+
+NOTE
+This is a simulated GPS visualization suitable for the academic/campus project. It does not connect to physical GPS hardware or a commercial tracking provider.
+No database schema changes were required for this update.

@@ -1,0 +1,3 @@
+package com.safarilanka.model;
+
+public enum Role { TOURIST, SAFARI_OPERATOR, SAFARI_GUIDE, JEEP_DRIVER, PARK_OFFICER, FINANCE_MANAGER, SYSTEM_ADMIN }

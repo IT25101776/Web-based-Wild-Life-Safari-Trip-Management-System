@@ -1,0 +1,27 @@
+Safari Lanka - Requested Update
+
+1. Card payment
+- Removed Visa/Mastercard/Amex/Discover brand-specific validation and messaging.
+- Card number now requires exactly 16 digits.
+- Card number is formatted automatically as 0000 0000 0000 0000 while typing.
+- Expiry remains MM/YY, only allows months 01-12, rejects expired cards, and rejects expiry dates more than 10 years ahead.
+- CVV/CVC remains numeric, 3 or 4 digits.
+- Full card number and CVV are not stored.
+
+2. Safari Operator booking printing
+- Added Print action for every booking.
+- Printed summary includes booking, tourist, package, visitors, payment/permit status, special requirements and assigned resources when available.
+
+3. Tourist booking details
+- Added Details action to every tourist booking.
+- Shows booking/payment/permit state and visitor list.
+- After assignment, shows assigned jeep, driver and guide with relevant contact/profile details.
+
+4. Vehicle maintenance
+- Jeep Driver can view maintenance history for the linked vehicle and report maintenance.
+- A driver maintenance report marks the vehicle as MAINTENANCE so it is not available for new assignments.
+- Safari Operator can view/add maintenance records and mark maintenance complete.
+- Completing maintenance returns a vehicle from MAINTENANCE to AVAILABLE.
+
+No database schema migration is required because the project already contains the maintenance_records table and required payment/assignment fields.
+Existing bank deposit, finance approval, permit, booking assignment, IntelliJ green-run, npm run dev and LAN access workflows are preserved.

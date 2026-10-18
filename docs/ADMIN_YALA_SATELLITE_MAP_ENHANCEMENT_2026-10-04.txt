@@ -1,0 +1,31 @@
+Safari Lanka - Admin Yala Live Map Enhancement
+Date: 2026-10-04
+
+Updated admin-only Live Safari Map:
+- Uses the supplied Yala National Park map image as the interactive base map.
+- Pan by dragging and zoom with mouse wheel, +/- controls, or double-click.
+- Default zoom keeps vehicle movement deliberately slow.
+- Zoom out makes vehicle movement slower; zoom in makes it faster.
+- Real booking/trip data refreshes every 1 second.
+- 3 default demonstration safari jeeps remain visible when no real tracked trips occupy those vehicles.
+- Real checked-in / in-progress assignments are automatically added to the live map.
+- Jeep markers use a custom safari jeep icon and hover mini-details.
+- Clicking a jeep opens the side details; Show full safari details opens the full admin booking details for real trips.
+- Interactive gates: Palatupana, Katagamuwa, Galge.
+- Interactive Blocks I-V aligned to the supplied map.
+- Interactive places: Yoda Wewa, Kumbukkana Wewa, Manik Wewa, Kirinda Wewa, Butawa View Point, Sithulpawwa View Point, Kottowa Peak, Magul Maha Vihara, Yala Beach.
+- Layer controls can show/hide jeeps, gates, blocks, places, and GPS trails.
+- Light and dark theme map treatments included.
+- Additional dark-theme dashboard contrast improvements included.
+
+Map image:
+frontend/public/images/yala-about/yala-live-operations-map.png
+
+Main updated frontend file:
+frontend/src/components/AdminLiveMap.jsx
+
+Main style file:
+frontend/src/styles.css
+
+Database schema:
+No new database schema changes were required for this visual/live-map enhancement.

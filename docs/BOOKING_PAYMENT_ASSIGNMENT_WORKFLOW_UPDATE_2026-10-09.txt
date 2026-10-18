@@ -1,0 +1,64 @@
+Safari Lanka - Booking, Payment and Driver-Vehicle Workflow Update
+Date: 2026-10-09
+
+Implemented changes
+===================
+1. Sri Lankan tourist NIC validation
+- New NIC: exactly 12 digits.
+- Old NIC: exactly 9 digits followed by V (case-insensitive input, stored uppercase).
+- Applied to tourist registration, My Account and booking visitor details, with matching backend validation.
+
+2. Operator confirmation before payment
+- New tourist bookings start PENDING + UNPAID.
+- Tourist payment is locked until Safari Operations changes the booking to CONFIRMED.
+- Tourist Dashboard and Payment page explain that the booking is waiting for operator confirmation.
+- Card payment becomes PAID immediately after successful prototype payment.
+- Bank transfer becomes PENDING until Finance approves it.
+- Safari resource assignment requires booking CONFIRMED and payment PAID.
+
+3. Booking cancellation reason
+- Safari Operator cancellation requires a reason.
+- Saved to bookings.cancellation_reason.
+- Shown to Tourist, Safari Operator and System Administrator in booking details.
+
+4. Payment rejection reason
+- Finance rejection requires a reason.
+- Saved to payments.rejection_reason.
+- Payment/booking payment status becomes REJECTED.
+- Shown to Tourist and Safari Operator (and Admin) in relevant details.
+- Tourist may submit payment again after rejection while booking remains CONFIRMED.
+
+5. Safari Guide account fields
+- Driving licence removed from Safari Guide creation/edit/profile requirements.
+- Driving licence remains required only for Jeep Driver accounts.
+
+6. Same-date assignment conflict protection
+- Drivers, guides and their linked vehicles already assigned to a trip on a date are excluded from another booking on the same date.
+- Backend validation also blocks conflicts even if a frontend request is manipulated.
+
+7. Admin vehicle management
+- System Administrator can create/edit vehicles from Vehicle Management.
+- Driver account creation/editing supports assigning an available vehicle.
+- Changing a driver's vehicle relinks the vehicle and removes the previous link.
+
+8. Automatic vehicle assignment
+- Safari Operations selects only Jeep Driver + Safari Guide.
+- The vehicle linked to the selected driver is assigned automatically.
+- The linked vehicle is shown before confirmation.
+- Driver, guide and vehicle availability is revalidated by the backend.
+
+Database changes
+================
+- bookings.cancellation_reason VARCHAR(1000)
+- payments.rejection_reason VARCHAR(1000)
+- REJECTED added to payment status checks for bookings and payments.
+- visitor age check aligned to 1..99.
+- Existing vehicles.driver_id is used for Driver-to-Vehicle association; no new relationship table is required.
+
+Existing database upgrade script
+================================
+database/UPGRADE_BOOKING_PAYMENT_ASSIGNMENT_WORKFLOW.sql
+
+Clean install SQL
+=================
+database/SAFARI_LANKA_FULL.sql

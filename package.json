@@ -1,0 +1,13 @@
+{
+  "name": "safari-lanka-management-system",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Safari Lanka development launcher for the Spring Boot backend and Vite frontend.",
+  "scripts": {
+    "postinstall": "npm --prefix frontend install",
+    "dev": "node scripts/run-dev.mjs",
+    "dev:backend": "node scripts/run-backend-dev.mjs",
+    "dev:frontend": "node scripts/run-frontend-dev.mjs",
+    "host:ngrok": "node scripts/run-ngrok.mjs"
+  }
+}

@@ -1,0 +1,38 @@
+SAFARI LANKA - PROFILE, EXPERIENCE & VERIFIED REVIEWS UPDATE
+
+1. PROFILE PICTURES
+- Every logged-in role can open My Account and upload a JPG, PNG or WEBP profile picture.
+- Maximum profile image size: 5 MB.
+- Runtime files are saved under frontend/public/images/profiles/.
+- If no picture exists, the dashboard shows the default user/profile icon.
+- Clicking the Safari Lanka logo in every dashboard returns to the public home page.
+
+2. TOURIST REGISTRATION VALIDATION
+- Email must be a valid email address containing @.
+- Phone must be exactly 10 digits and start with 0.
+- Password must be at least 8 characters with at least one letter and one number.
+- Password must be entered twice and both values must match.
+
+3. EXPERIENCE PAGE
+- Public navigation Experience now opens /experience.
+- The page contains Yala wildlife experience cards and the supplied local wildlife photographs.
+- Guest reviews are shown on the Experience page.
+- /reviews provides the full public reviews page.
+
+4. VERIFIED POST-TRIP REVIEWS
+- Safari Operations can mark a confirmed, paid, fully assigned safari as COMPLETED on/after its visit date.
+- Only the tourist who owns a COMPLETED booking can submit one review for that booking.
+- Overall rating: required, 1-5.
+- Driver rating: optional, 1-5.
+- Guide rating: optional, 1-5.
+- Driver/guide comments are optional.
+- Tourist may upload up to 8 review media files.
+- Images: JPG/PNG/WEBP, maximum 8 MB each.
+- Videos: MP4/WEBM, maximum 50 MB each.
+- Runtime review media is saved to frontend/public/reviews/media/.
+- Submitted reviews are published to Experience and Reviews pages with the tourist name.
+
+5. DATABASE
+Fresh install: database/SAFARI_LANKA_FULL.sql
+Existing database upgrade: database/UPGRADE_PROFILE_AND_REVIEWS.sql
+Hibernate ddl-auto=update also creates the new model fields/table when the application starts.

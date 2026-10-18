@@ -1,0 +1,29 @@
+SAFARI LANKA - INTELLIJ IDEA RUN GUIDE
+
+NORMAL WINDOWS RUN
+1. Start MySQL Server.
+2. Double-click run.bat in the main Safari_Lanka folder.
+3. The launcher starts both backend and frontend automatically.
+4. Website: http://localhost:5173
+
+INTELLIJ BACKEND RUN (OPTIONAL)
+1. Start MySQL Server.
+2. Open IntelliJ IDEA.
+3. File > Open > select the backend folder of this project.
+4. IntelliJ should detect backend/pom.xml as a Maven project.
+5. Select JDK 17 or newer.
+6. Open src/main/java/com/safarilanka/SafariLankaApplication.java.
+7. Click the green Run icon next to main().
+
+For the complete application, the recommended method is the root run.bat file.
+It automatically performs npm install and npm run dev for the frontend.
+
+DATABASE DEFAULTS
+Database: safari_lanka
+Host: localhost
+Port: 3306
+Username: root
+Password: 1234
+
+FULL SQL FILE
+database/SAFARI_LANKA_FULL.sql

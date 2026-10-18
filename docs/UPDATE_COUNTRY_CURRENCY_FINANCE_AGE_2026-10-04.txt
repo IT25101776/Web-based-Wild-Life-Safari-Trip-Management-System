@@ -1,0 +1,30 @@
+TOURIST COUNTRY / CURRENCY / IDENTITY + FINANCE UNPAID + AGE VALIDATION UPDATE
+
+1. Tourist registration
+- Added country selector.
+- Country automatically selects a default display currency.
+- Added gender selector.
+- Added birthday field.
+- Sri Lankan tourists can select NIC or Passport.
+- Tourists from other countries use Passport only.
+- NIC validation: exactly 12 digits.
+- Passport validation: 6-20 letters/numbers.
+
+2. Currency preference
+- Added preferred display currency to tourist accounts.
+- Users can change display currency from My Account.
+- Package, booking, payment and tourist dashboard amounts are converted from the LKR base amount for display.
+- Database accounting amounts remain stored in LKR.
+- Prototype conversion rates are kept in frontend/src/utils/currency.js and can be updated there.
+
+3. Finance Officer
+- Added an Unpaid Bookings section.
+- Shows booking ID, tourist, package, visit date, visitors, amount due and UNPAID status.
+- Existing payment ledger, bank slip approval and refund workflow remain unchanged.
+
+4. Visitor age
+- Visitor age is limited to 1-99 (maximum two digits) in both frontend and backend validation.
+
+Database files
+- Fresh install: database/SAFARI_LANKA_FULL.sql
+- Existing database upgrade: database/UPGRADE_TOURIST_PROFILE_CURRENCY.sql

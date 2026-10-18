@@ -1,0 +1,29 @@
+Safari Lanka - ngrok 403 fix for ngrok-free.dev
+
+Root cause
+----------
+The public ngrok URL currently used by the project ends in .ngrok-free.dev, for example:
+https://victory-outpour-diary.ngrok-free.dev
+
+The previous CORS/host fix allowed .ngrok-free.app and .ngrok.app, but did not include .ngrok-free.dev.
+The browser Origin header is forwarded through the Vite /api proxy to Spring Boot, so Spring Security rejected POST /api/auth/login with HTTP 403 before AuthController handled the login.
+
+Changed files
+-------------
+1. backend/src/main/java/com/safarilanka/config/SecurityConfig.java
+   Added https://*.ngrok-free.dev to allowedOriginPatterns.
+
+2. frontend/vite.config.js
+   Added .ngrok-free.dev to allowedHosts.
+
+3. frontend/src/utils/api.js
+   Updated ngrok hostname detection to support both .app and .dev.
+
+Restart requirement
+-------------------
+Stop the old Spring Boot, Vite and ngrok processes completely and start HOST_WITH_NGROK.bat again.
+A backend restart is required because SecurityConfig.java changed.
+
+Database
+--------
+No SQL or MySQL changes are required for this fix.

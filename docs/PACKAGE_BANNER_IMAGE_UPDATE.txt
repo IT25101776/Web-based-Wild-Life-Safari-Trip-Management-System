@@ -1,0 +1,11 @@
+PACKAGE BANNER IMAGE UPDATE
+
+The Safari Packages page hero/banner now uses the supplied local wildlife image.
+
+Image file:
+frontend/public/images/packages/packages-banner.jpeg
+
+CSS reference:
+frontend/src/styles.css
+
+The image can be changed later by replacing packages-banner.jpeg with another image using the same filename.
